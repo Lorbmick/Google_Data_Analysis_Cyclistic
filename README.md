@@ -25,3 +25,11 @@ Cyclistic collects data from the trips taken on their bikes, compiles them into 
 Processing the Data
 
 The processing stage was performed in RStudio. It is the proper tool to handle the files included in the dataset. It is important to note the same data processing can be done using SQL through Big Query.
+
+Data Collection
+
+The fist step is to load the libraries for the cleaning process. Tidyverse, lubridate, dplyr and ggplot2 are going to be used. 
+
+Next, we load each data set per month with the read_csv function.  This will give us 12 different data frames.  it will be important to merge all of files into a single data frame to avoid repeating the same process for each month.
+(insert picture)
+After creating the single file, it is important to check for missing values. We want to check for missing values in order to make sure if further analysis is needed. 
