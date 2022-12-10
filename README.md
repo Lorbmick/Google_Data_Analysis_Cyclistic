@@ -30,6 +30,6 @@ Data Collection
 
 The fist step is to load the libraries for the cleaning process. Tidyverse, lubridate, dplyr and ggplot2 are going to be used. 
 
-Next, we load each data set per month with the read_csv function.  This will give us 12 different data frames.  it will be important to merge all of files into a single data frame to avoid repeating the same process for each month.
+Next, we load each data set per month with the read_csv function.  This will give us 12 different data frames.  It will be important to merge all of files into a single data frame to avoid repeating the same process for each month.
 (insert picture)
-After creating the single file, it is important to check for missing values. We want to check for missing values in order to make sure if further analysis is needed. 
+After creating the single file, it is important to check for missing values. We want to check for missing values in order to make sure if further analysis is needed. Once we have created the single file (cycle_trips) then we can check for missing values. The results show columns with missing values are those related to the correspondent stations. The main analysis is based on the other columns with no missing values. This implies that the final conclusions and recommendations of this case study will not be biased.
