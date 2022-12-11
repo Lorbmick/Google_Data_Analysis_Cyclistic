@@ -32,4 +32,21 @@ The fist step is to load the libraries for the cleaning process. Tidyverse, lubr
 
 Next, we load each data set per month with the read_csv function.  This will give us 12 different data frames.  It will be important to merge all of files into a single data frame to avoid repeating the same process for each month.
 (insert picture)
-After creating the single file, it is important to check for missing values. We want to check for missing values in order to make sure if further analysis is needed. Once we have created the single file (cycle_trips) then we can check for missing values. The results show columns with missing values are those related to the correspondent stations. The main analysis is based on the other columns with no missing values. This implies that the final conclusions and recommendations of this case study will not be biased.
+After creating the single file, it is important to check for missing values. We want to check for missing values in order to make sure if further analysis is needed. Once we have created the single file (cycle_trips) then we can check for missing values. The results show columns with missing values are those related to the correspondent stations. The main analysis is based on the other columns with no missing values. This implies that the final conclusions and recommendations of this case study will not be biased. The creation of new columns necessary for this analysis. The main variable created is minutes_ride_length. This represents the difference in minutes between the time of start and end of each ride. The other additions are date variables such as month, year and day of the week.
+
+Removing bad data
+The last step in this cleaning process is removing data that does not match the following criteria:
+
+minutes_ride_length needs to be a positive value thats greater than zero.
+start_station_name and end_station_name can not be recorded as a blank space. 
+These results assure these conditions are consistent and reliable.
+
+Final Data
+There are nwo two separate data structures obtained from the cleaning process:
+
+start_at_info: summarizes the top 200 start stations, based on the total number of rides (either by casual customers or members)
+Cycle_trips_v3: Cyclistic's cleaned trip data
+
+The Data Analysis
+
+
