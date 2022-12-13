@@ -53,3 +53,5 @@ The comparison between both types of customers indicates annual members have a l
 ![Rplot](https://user-images.githubusercontent.com/119776629/207239370-6ebb381f-39ba-4db3-aa83-01f1f8097016.png)
 ![Rplot02](https://user-images.githubusercontent.com/119776629/207240664-b8bf0e10-a465-4ba0-b111-6729f8213082.png)
 
+The evidence shows that annual members could have a more specific purpose for their rides. This argument can be inferred from the fact that their average ride length in minutes is almost uniform throughout the year (View Plot 3).
+However, the same indicator has very different values for the casual customers, which also implies that the purpose of their rides can vary a lot (work, tourism or pleasure).
