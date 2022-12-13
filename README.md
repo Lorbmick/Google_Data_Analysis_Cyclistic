@@ -49,4 +49,7 @@ Cycle_trips_v3: Cyclistic's cleaned trip data
 
 The Data Analysis
 
+The comparison between both types of customers indicates annual members have a lower average ride length compared to casual customers. The difference is about 20 minutes. This could indicator each group is using the bikes for different uses. The next visualizations support this theory. Plot 1 shows that the number of rides by annual members were almost uniform since October 2021. The upwards trend between April 2022 and July 2022 could be caused by the increase in warmer weather and effects of the Covid-19 pandemic infections decreasing. Plot 2 shows a very clear peak of the number of rides by casual members between the months with the highest temperatures in a year. Colder months such as October, November and December show a decrease most likely due to the drop in tempreture in Chicago. 
+![Rplot](https://user-images.githubusercontent.com/119776629/207239370-6ebb381f-39ba-4db3-aa83-01f1f8097016.png)
+![Rplot02](https://user-images.githubusercontent.com/119776629/207240664-b8bf0e10-a465-4ba0-b111-6729f8213082.png)
 
