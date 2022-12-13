@@ -53,5 +53,8 @@ The comparison between both types of customers indicates annual members have a l
 ![Rplot](https://user-images.githubusercontent.com/119776629/207239370-6ebb381f-39ba-4db3-aa83-01f1f8097016.png)
 ![Rplot02](https://user-images.githubusercontent.com/119776629/207240664-b8bf0e10-a465-4ba0-b111-6729f8213082.png)
 
-The evidence shows that annual members could have a more specific purpose for their rides. This argument can be inferred from the fact that their average ride length in minutes is almost uniform throughout the year (View Plot 3).
-However, the same indicator has very different values for the casual customers, which also implies that the purpose of their rides can vary a lot (work, tourism or pleasure).
+The evidence shows that annual members may have more purpose for their rides. Weather factors alone could not explain the consistent bike ride times for members. Plot 3 shows average ride length in minutes for members is consistent across the graph. The graphic shown for asual customers implies their rides can vary greatly for reasons such as pleasure, tourism, communting, etc.
+![Rplot03](https://user-images.githubusercontent.com/119776629/207242829-51e3a65a-7cf3-43ed-9b91-8f11be9b9cb4.png)
+A different perspective of these results can be obtained if the analysis is based on the days of the week. Plot 4 shows that the members are more likely to take a ride during weekdays, which does not happen during the weekends.
+
+Moreover, for the members the average ride duration is constant throughout the week, with a very slight increase on Saturday and Sunday (View Plot 5). This could mean that they take these rides mainly to commute to their workplaces (or educational centers), but also that even this group is likely to take a ride just for leisure (given the fact that they do not have to pay extra for these situations). On the contrary, the numbers of casual customers are much larger during the weekends, which implies a predominance of bike rides for tourism or leisure
