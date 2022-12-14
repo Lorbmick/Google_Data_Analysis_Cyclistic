@@ -60,3 +60,21 @@ A different perspective can be obtained if we base the analysis on the days of t
 ![Rplot04](https://user-images.githubusercontent.com/119776629/207244348-66964a9c-47b7-41f5-b1c5-524c841eee3c.png)
 ![Rplot05](https://user-images.githubusercontent.com/119776629/207244392-0e844630-245e-4bfc-9cc4-b025ca6af716.png)
 
+Clear differences on shown with the type of bikes each customer tends to choose. Casual customers do not seem to have a preference over classic or electric bikes. This can be seen in Plot 6. Rides on electric bikes do last longer (Plot 7). The reason could be e-bikes use always-on pedal-assist technology. Casual customers could use this feature more often since they are more likely to take a ride for tourism or leisure.  On the other hand, members seem to have a greater preference for classic bikes.The rides average duration is almost identical for both rideable types. Again, this could be a strong indicator members are more focused on commuting to work than for leisure. 
+![Rplot06](https://user-images.githubusercontent.com/119776629/207516026-668e356a-30ee-49ef-b10a-4b01a9561eea.png)
+![Rplot07](https://user-images.githubusercontent.com/119776629/207516065-3c2e7f05-5115-44c8-b866-ef1caf650de7.png)
+
+Conclusion 
+
+The case study's objective was to analyze the Cyclistic's historical trip data and identify the possible differences between annual members and casual customers. Two main conclusions can be obtained for each group:  Casual customers ride more frequently. They ride bikes for a longer period of time during warmer seasons. They are more active during the weekends. They have a preference for e-bikes.These results suggest casual customers are more focused on rides for leisure and tourism. 
+
+Annual members seem to take rides regularly throughout the year. They are  more active during the weekdays. They do not have a preference for either electric or classic bikes. The results show annual members are more focused on commuting to their places of work. 
+
+Some recommendations can be proposed based on the previous conclusions to convert casual customers to annual members: The present case study had the objective to analyze the Cyclistic's historical trip data and identify the potential differences between the annual members and casual customers. There are two main conclusions that can be obtained for each profile:
+
+Casual customers ride more frequently and for a longer period of time during warmer seasons. They are more active during the weekends and have a preference for e-bikes (since these allow to take longer rides more easily). Also, they tend to start from stations closer to the coast. These results suggest that casual customers are more focused on rides for leisure and tourism, but other reasons cannot be ruled out, specially during the weekdays.
+
+Annual members appear to take rides regularly throughout the year, with an expected slight decrease during colder months. Unlike casual customers, they are much more active during the weekdays, but do not have a preference for either rideable type. Also, the starting stations they choose are more diversified around the city, and not clustered inside a small area. The results suggest that annual members are more focused on commuting to their workplaces, but again other reasons cannot be ruled out, since the rides during the weekends are a bit longer.
+
+Despite not being the main task for this case study, some recommendations can be proposed based on the previous conclusions to convert casual customers to annual members: Identify and create campaigns for the casual customers that took a single ride and try to get them commit to an annual membership. Adding newer stations within the city could motivate single riders to becomme members. Finally, offer more e-bikes at a greater number of stations. 
+
