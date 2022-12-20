@@ -1,0 +1,129 @@
+Data Cleaning Cycle
+
+#Install Libraries
+library(tidyverse)
+library(ggplot2)
+library(lubridate)
+library(dplyr)
+
+#Upload the 12 months of data from Cyclistic
+data_2021_11 <- read_csv("202111-divvy-tripdata.csv")
+data_2021_12 <- read_csv("202112-divvy-tripdata.csv")
+data_2022_1 <- read_csv("202201-divvy-tripdata.csv")
+data_2022_2 <- read_csv("202202-divvy-tripdata.csv")
+data_2022_3 <- read_csv("202203-divvy-tripdata.csv")
+data_2022_4 <- read_csv("202204-divvy-tripdata.csv")
+data_2022_5 <- read_csv("202205-divvy-tripdata.csv")
+data_2022_6 <- read_csv("202206-divvy-tripdata.csv")
+data_2022_7 <- read_csv("202207-divvy-tripdata.csv")
+data_2022_8 <- read_csv("202208-divvy-tripdata.csv")
+data_2022_9 <- read_csv("202209-divvy-publictripdata.csv")
+data_2022_10 <- read_csv("202210-divvy-tripdata.csv")
+
+#Begin moving data files into one file
+
+#make sure all columns are correct in data files
+colnames(data_2021_11)
+colnames(data_2021_12)
+colnames(data_2022_2)
+colnames(data_2022_7)
+colnames(data_2022_10)
+#all columns are correct
+
+#Combine multiple Cyclistic data into one single file
+Cycle_trips <- bind_rows(data_2021_11)
+Cycle_trips <- bind_rows(data_2021_12)
+
+for (i in 1:10) {df_index <- paste0('data_2022_',i)
+df <- get(df_index)
+Cycle_trips <- bind_rows(Cycle_trips,df)
+}
+rm(df)
+
+#Inspect new table
+dim(Cycle_trips)  #number of rows
+colnames(Cycle_trips)  #number of columns
+head(Cycle_trips)  #observations
+summary(Cycle_trips)  #stats
+str(Cycle_trips)
+glimpse(Cycle_trips)
+
+#check for misspellings in categories
+unique(Cycle_trips$rideable_type)
+unique(Cycle_trips$member_casual)
+unique(Cycle_trips$start_station_name)
+
+#Check for any missing values
+missing_val <- Cycle_trips %>%
+  sapply(function(x) sum(is.na(x))) %>%
+  as.data.frame() %>%
+  rename(., nulls = .) %>%
+  mutate(col = colnames(Cycle_trips), .before = nulls)
+rownames(missing_val) <- 1:nrow(missing_val)
+
+missing_val %>%   #plots missing values
+  ggplot(aes(x = nulls, y= col)) +
+  geom_bar(stat = "identity", fill="#3a97d3") +
+  labs(
+    title = "Missing Values",
+    x = NULL,
+    y = "Column Names") +
+  theme(
+    legend.position = 'bottom',
+    legend.title = element_text(size=9),
+    legend.text = element_text(size=8),
+    panel.background = element_rect(fill = "white"),
+    plot.title = element_text(size=12, hjust = 0.5, face = "bold")) +
+  scale_x_continuous(labels = scales::comma)
+
+#create date variables
+Cycle_trips$date <- as.Date(Cycle_trips$started_at)
+Cycle_trips$month <- format(as.Date(Cycle_trips$date), "%m")
+Cycle_trips$day <- format(as.Date(Cycle_trips$date), "%d")
+Cycle_trips$year <- format(as.Date(Cycle_trips$date), "%Y")
+Cycle_trips$day_of_week <- format(as.Date(Cycle_trips$date), "%A")
+
+#Ride length variablity 
+Cycle_trips$seconds_ride_length <- difftime(Cycle_trips$ended_at,Cycle_trips$started_at, units = "secs")
+Cycle_trips$minutes_ride_length <- difftime(Cycle_trips$ended_at,Cycle_trips$started_at, units = "mins")
+
+Cycle_trips$seconds_ride_length <- as.numeric(Cycle_trips$seconds_ride_length)
+Cycle_trips$minutes_ride_length <- round(as.numeric(Cycle_trips$minutes_ride_length), digits = 2)
+
+#join electic bike data (old/new)
+Cycle_trips$rideable_type_2 <- ifelse(Cycle_trips$rideable_type == "classic_bike", "classic_bike", 
+                                      +                                     ifelse((Cycle_trips$rideable_type == "docked_bike") | (Cycle_trips$rideable_type == "electric_bike"),"electric_bike","other"))
+> unique(Cycle_trips$rideable_type_2)
+
+#remove any bad data
+summary(Cycle_trips)
+
+filter_stations <- c("", " ", "DIVVY CASSETTE REPAIR MOBILE STATION")
+
+Cycle_Trips_v2 <- Cycle_trips %>%
+  filter(minutes_ride_length > 0) %>%
+  filter(!(start_station_name %in% filter_stations) &
+           !(end_station_name %in% filter_stations))
+
+#create starting station mapping
+start_station_info <- select(Cycle_Trips_v2, c(
+  start_station_name, member_casual, start_lat, start_lng)) %>%
+  group_by(start_station_name, member_casual, start_lat, start_lng) %>%
+  summarize(number_of_rides = n(), .groups = "drop") %>%
+  arrange(., desc(number_of_rides)) %>%
+  slice(., 1:200) 
+
+#Remove columns that irrelvant 
+Cycle_trips_v3 <- select(Cycle_trips_v2, -c(
+  start_station_id, end_station_id,
+  start_station_name, end_station_name,
+  start_lat, start_lng, end_lat, end_lng, ride_id))
+
+glimpse(start_station_info)
+glimpse(cycle_trips_v3)
+
+#export files for analysis
+write.csv(Cycle_trips_v3, file = 'cleaned_trip_data.csv')
+write.csv(start_station_info, file = 'cleaned_station_info.csv')
+save(Ccyle_trips_v3, file = 'cleaned_trip_data.RData')
+save(start_station_info, file = 'cleaned_station_info.RData')
