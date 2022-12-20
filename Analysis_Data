@@ -1,0 +1,176 @@
+#descriptive analysis
+summary(cycle_trips_v3$minutes_ride_length)
+
+#Members vs casual differ
+aggregate(cycle_trips_v3$minutes_ride_length ~ cycle_trips_v3$member_casual, FUN = mean)
+aggregate(cycle_trips_v3$minutes_ride_length ~ cycle_trips_v3$member_casual, FUN = max)
+aggregate(cycle_trips_v3$minutes_ride_length ~ cycle_trips_v3$member_casual, FUN = min)
+
+#day of week members vs casual comparison
+cycle_trips_v3$day_of_week <- ordered(cycle_trips_v3$day_of_week, 
+                                    levels=c("Monday", "Tuesday", "Wednesday", "Thursday","Friday", "Saturday", "Sunday"))
+aggregate(cycle_trips_v3$minutes_ride_length ~ cycle_trips_v3$member_casual + cycle_trips_v3$day_of_week, FUN = mean)
+
+#data by customer type and date
+output1 <- cycle_trips_v3 %>%
+  group_by(date = date(started_at), member_casual) %>%
+  summarise(number_of_rides = n(),
+            average_duration = mean(minuteslib_ride_length),
+            .groups = 'drop')
+
+#data customer type and weekday
+output2 <- cycle_trips_v3 %>%
+  mutate(weekday = wday(started_at,label=TRUE)) %>% 
+  group_by(member_casual, weekday) %>%
+  summarise(number_of_rides = n(), 
+            average_duration = mean(minutes_ride_length),
+            .groups = 'drop') %>%
+  arrange(member_casual, weekday)
+
+#data customer type and month
+output3 <- cycle_trips_v3 %>%
+  mutate(month_of_ride = month(started_at, label = TRUE)) %>%
+  group_by(member_casual, month_of_ride) %>%
+  summarise(number_of_rides = n(), 
+            average_duration = mean(minutes_ride_length),
+            .groups = 'drop') %>%
+  arrange(member_casual, month_of_ride)
+
+#data customer type and type of ride
+output4 <- cycle_trips_v3 %>%
+  group_by(member_casual, rideable_type_2) %>%
+  summarise(number_of_rides = n(), 
+            average_duration = mean(minutes_ride_length),
+            .groups = 'drop') %>%
+  arrange(member_casual, rideable_type_2)
+
+#visualization
+#visualization by number of rides
+output1 %>%
+  ggplot(aes(x = date, y = number_of_rides, color = member_casual)) +
+  geom_line() +
+  labs(
+    title = "Plot 1: Total Rides by Date",
+    color = "Customer Type",
+    x = NULL,
+    y = "Number of Rides") +
+  theme(
+    legend.position = 'bottom',
+    legend.title = element_text(size=9),
+    legend.text = element_text(size=8),
+    panel.background = element_rect(fill = "white"),
+    plot.title = element_text(size=12, hjust = 0.5, face = "bold")) +
+  scale_color_manual(values = cyclistic_palette) +
+  scale_y_continuous(labels = scales::comma)
+
+#number rides per month
+output3 %>%
+  ggplot(aes(x=month_of_ride, y=number_of_rides, fill=member_casual)) +
+  geom_col() +
+  facet_wrap(~member_casual) +
+  labs(
+    title = "Plot 2: Total Rides per Month",
+    fill = "Customer Type",
+    x = NULL,
+    y = "Number of Rides") +
+  theme(
+    legend.position = 'bottom',
+    legend.title = element_text(size=9),
+    legend.text = element_text(size=8),
+    panel.background = element_rect(fill = "white"),
+    plot.title = element_text(size=12, hjust = 0.5, face = "bold")) +
+  scale_fill_manual(values = cyclistic_palette) +
+  scale_y_continuous(labels = scales::comma)
+
+#average duration ride per month
+output3 %>%
+  ggplot(aes(x=month_of_ride, y=average_duration, fill = member_casual)) +
+  geom_col() +
+  facet_wrap(~member_casual) +
+  labs(
+    title = "Plot 3: Average Ride Duration per Month",
+    fill = "Customer Type",
+    x = NULL,
+    y = "Average Duration (minutes)") +
+  theme(
+    legend.position = 'bottom',
+    legend.title = element_text(size=9),
+    legend.text = element_text(size=8),
+    panel.background = element_rect(fill = "white"),
+    plot.title = element_text(size=12, hjust = 0.5, face = "bold")) +
+  scale_fill_manual(values = cyclistic_palette) +
+  scale_y_continuous(labels = scales::comma)
+
+#rides per weekday by number
+output2 %>%
+  ggplot(aes(x=weekday, y=number_of_rides, fill=member_casual)) +
+  geom_col(position = "dodge") +
+  labs(
+    title = "Plot 4: Total Rides per Weekday",
+    fill = "Customer Type",
+    x = NULL,
+    y = "Number of Rides") +
+  theme(
+    legend.position = 'bottom',
+    legend.title = element_text(size=9),
+    legend.text = element_text(size=8),
+    panel.background = element_rect(fill = "white"),
+    plot.title = element_text(size=12, hjust = 0.5, face = "bold")) +
+  scale_fill_manual(values = cyclistic_palette) +
+  scale_y_continuous(labels = scales::comma)
+
+#Average duration weekday 
+output2 %>%
+  ggplot(aes(x=weekday, y=average_duration, fill=member_casual)) +
+  geom_col(position = "dodge") +
+  labs(
+    title = "Plot 5: Average Ride Duration per Weekday",
+    fill = "Customer Type",
+    x = NULL,
+    y = "Average Duration (minutes)") +
+  theme(
+    legend.position = 'bottom',
+    legend.title = element_text(size=9),
+    legend.text = element_text(size=8),
+    panel.background = element_rect(fill = "white"),
+    plot.title = element_text(size=12, hjust = 0.5, face = "bold")) +
+  scale_fill_manual(values = cyclistic_palette) +
+  scale_y_continuous(labels = scales::comma)
+
+#number of rides by rideable type
+output4 %>%
+  ggplot(aes(x=rideable_type_2, y=number_of_rides, fill = member_casual)) +
+  geom_col() +
+  facet_wrap(~member_casual) +
+  labs(
+    title = "Plot 6: Total Rides by Rideable Type",
+    fill = "Rideable Type",
+    x = NULL,
+    y = "Number of Rides") +
+  theme(
+    legend.position = 'bottom',
+    legend.title = element_text(size=9),
+    legend.text = element_text(size=8),
+    panel.background = element_rect(fill = "white"),
+    plot.title = element_text(size=12, hjust = 0.5, face = "bold")) +
+  scale_fill_manual(values = cyclistic_palette) +
+  scale_y_continuous(labels = scales::comma)
+
+#average ride duration by ride type
+output4 %>%
+  ggplot(aes(x=rideable_type_2, y=average_duration, fill = member_casual)) +
+  geom_col() +
+  facet_wrap(~member_casual) +
+  labs(
+    title = "Plot 7: Average Ride Duration by Rideable Type",
+    fill = "Rideable Type",
+    x = NULL,
+    y = "Average Duration (minutes)") +
+  theme(
+    legend.position = 'bottom',
+    legend.title = element_text(size=9),
+    legend.text = element_text(size=8),
+    panel.background = element_rect(fill = "white"),
+    plot.title = element_text(size=12, hjust = 0.5, face = "bold")) +
+  scale_fill_manual(values = cyclistic_palette) +
+  scale_y_continuous(labels = scales::comma)
