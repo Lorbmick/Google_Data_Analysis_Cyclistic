@@ -31,8 +31,10 @@ Data Collection
 The fist step is to load the libraries for the cleaning process. Tidyverse, lubridate, dplyr and ggplot2 are going to be used. 
 
 Next, we load each data set per month with the read_csv function.  This will give us 12 different data frames.  It will be important to merge all of files into a single data frame to avoid repeating the same process for each month.
-(insert picture)
+
 After creating the single file, it is important to check for missing values. We want to check for missing values in order to make sure if further analysis is needed. Once we have created the single file (cycle_trips) then we can check for missing values. The results show columns with missing values are those related to the correspondent stations. The main analysis is based on the other columns with no missing values. This implies that the final conclusions and recommendations of this case study will not be biased. The creation of new columns necessary for this analysis. The main variable created is minutes_ride_length. This represents the difference in minutes between the time of start and end of each ride. The other additions are date variables such as month, year and day of the week.
+
+![glimpse](https://user-images.githubusercontent.com/119776629/209067953-aecec390-6aee-4e3c-a620-2ded4c069c2b.png)
 
 Removing bad data
 The last step in this cleaning process is removing data that does not match the following criteria:
@@ -46,6 +48,10 @@ There are nwo two separate data structures obtained from the cleaning process:
 
 start_at_info: summarizes the top 200 start stations, based on the total number of rides (either by casual customers or members)
 Cycle_trips_v3: Cyclistic's cleaned trip data
+
+![Start_Station](https://user-images.githubusercontent.com/119776629/209070726-0ab52ef3-2eff-429d-a406-13a4d6eb344c.png)
+![Trips_data](https://user-images.githubusercontent.com/119776629/209070751-085695a2-79bb-454a-896e-9c2a2bef2f3a.png)
+
 
 The Data Analysis
 
